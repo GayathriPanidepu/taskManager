@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gayathri's Task Universe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #667EEA;
+            --secondary: #764BA2;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --light-bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --accent-blue: #3B82F6;
+            --accent-green: #34D399;
+            --accent-purple: #A78BFA;
+            --accent-orange: #FB923C;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(102, 126, 234, 0.45);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            20%, 24%, 55% {
+                opacity: 0.9;
+                transform: scale(1.08) rotate(5deg);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-10px);
+            }
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(-50px, -50px);
+            }
+            50% {
+                transform: translate(-100px, 0);
+            }
+            75% {
+                transform: translate(-50px, 50px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* ==================== COMMON STYLES ==================== */
+        .dotted-bg {
+            background-image: radial-gradient(circle, rgba(102, 126, 234, 0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .container {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container.active {
+            display: flex;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            color: var(--text-dark);
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--text-dark);
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        button {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            position: relative;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: left 0.3s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: #FFFFFF;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
+        }
+
+        input[type="password"],
+        input[type="text"],
+        textarea {
+            font-family: 'Inter', sans-serif;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            color: var(--text-dark);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="password"]:focus,
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input[type="password"].shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* ==================== LANDING PAGE ==================== */
+        #landing {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 50%, #F0F4FF 100%);
+        }
+
+        #landing::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent);
+            top: -100px;
+            left: -100px;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        #landing::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.08), transparent);
+            bottom: -150px;
+            right: -100px;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .landing-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: slideInUp 0.8s ease;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #FB7185 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            animation: float 3s ease-in-out infinite;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 500;
+            animation: slideDown 0.8s ease;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 50px;
+            max-width: 600px;
+            line-height: 1.8;
+            animation: slideInUp 0.9s ease;
+        }
+
+        .landing-button {
+            font-size: 1.4rem;
+            padding: 20px 56px;
+            animation: glow 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .landing-button:active {
+            transform: scale(0.97);
+        }
+
+        .floating-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.12), transparent);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.5;
+            filter: blur(15px);
+        }
+
+        .particle-1 {
+            top: 10%;
+            left: 10%;
+            width: 120px;
+            height: 120px;
+            animation-delay: 0s;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15), transparent);
+        }
+
+        .particle-2 {
+            top: 60%;
+            right: 15%;
+            width: 160px;
+            height: 160px;
+            animation-delay: 2s;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.12), transparent);
+            border: 1px solid rgba(118, 75, 162, 0.1);
+        }
+
+        .particle-3 {
+            bottom: 10%;
+            left: 50%;
+            width: 140px;
+            height: 140px;
+            animation-delay: 4s;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent);
+            border: 1px solid rgba(102, 126, 234, 0.08);
+        }
+
+        /* ==================== PASSWORD GATES ==================== */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, z-index 0.3s ease;
+        }
+
+        .password-overlay.active {
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(6px);
+            z-index: 999;
+            pointer-events: auto;
+            opacity: 1;
+            animation: fadeIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-modal {
+            background: #FFFFFF;
+            padding: 60px 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 480px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: slideInUp 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .password-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .password-modal::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.08), transparent);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            filter: blur(20px);
+        }
+
+        .password-lock-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: float 2.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .password-modal h2 {
+            margin-bottom: 12px;
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideDown 0.5s ease;
+            position: relative;
+            z-index: 1;
+            font-weight: 800;
+        }
+
+        .password-modal p {
+            color: var(--text-light);
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+            animation: slideDown 0.6s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+            margin-bottom: 24px;
+            animation: slideInUp 0.7s ease;
+        }
+
+        .password-input {
+            width: 100%;
+            font-size: 1rem;
+            padding: 14px 20px;
+            border: 1.5px solid var(--border);
+            background: #FFFFFF;
+            position: relative;
+            z-index: 1;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .password-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.2), inset 0 2px 10px rgba(102, 126, 234, 0.08);
+            transform: scale(1.01);
+            background: var(--card-bg);
+        }
+
+        .password-error {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            min-height: 20px;
+            font-weight: 600;
+            animation: slideInUp 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .password-button {
+            width: 100%;
+            font-size: 1rem;
+            margin-bottom: 14px;
+            animation: slideInUp 0.8s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            font-weight: 700;
+            padding: 14px 28px;
+        }
+
+        .password-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: left 0.4s ease;
+        }
+
+        .password-button:hover::after {
+            left: 100%;
+        }
+
+        .password-progress {
+            text-align: left;
+            margin-top: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .password-progress-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .password-progress-bar {
+            height: 3px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .password-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            animation: slideInLeft 0.6s ease;
+        }
+
+        /* ==================== DASHBOARD ==================== */
+        #dashboard {
+            flex-direction: row;
+            min-height: 100vh;
+            gap: 0;
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5FB 50%, #F8F9FE 100%);
+        }
+
+        .dashboard-left,
+        .dashboard-center,
+        .dashboard-right {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: var(--light-bg);
+        }
+
+        .dashboard-left {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border-right: 1px solid var(--border);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .dashboard-center {
+            border-right: 1px solid var(--border);
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .greeting {
+            font-size: 1.9rem;
+            margin-bottom: 0;
+            font-weight: 750;
+            color: var(--text-dark);
+            animation: slideInLeft 0.6s ease;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .greeting-emoji {
+            font-size: 2.8rem;
+            margin-left: 12px;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+            transform-origin: center;
+        }
+
+        .date-time {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 800;
+            animation: slideInLeft 0.7s ease;
+            letter-spacing: 0.5px;
+            margin-top: 15px;
+        }
+
+        .date-display {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            animation: slideInLeft 0.8s ease;
+            font-weight: 500;
+        }
+
+        .quotes-container {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border-radius: 16px;
+            border-left: 5px solid var(--primary);
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+            animation: slideInLeft 0.9s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quotes-container::before {
+            content: '✨';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            animation: bounce 2.5s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .quotes-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(102, 126, 234, 0.05), transparent);
+            pointer-events: none;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            text-align: center;
+            animation: fadeIn 1s ease;
+            color: var(--text-dark);
+            font-weight: 500;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tasks-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 25px;
+            animation: slideInLeft 0.6s ease;
+        }
+
+        .day-card {
+            padding: 18px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            animation: popIn 0.4s ease backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.4s ease;
+            z-index: 1;
+        }
+
+        .day-card:hover::before {
+            left: 100%;
+        }
+
+        .day-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.15);
+            background: linear-gradient(135deg, #FFFFFF 0%, #EEF2FF 100%);
+        }
+
+        .day-card:active {
+            transform: translateY(-1px);
+        }
+
+        .day-card.inactive {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .day-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInUp 0.5s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            animation: slideInUp 0.6s ease;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        .day-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            animation: slideInUp 0.7s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .status-completed {
+            background: var(--success);
+            color: var(--success);
+        }
+
+        .status-broken {
+            background: var(--danger);
+            color: var(--danger);
+        }
+
+        .status-today {
+            background: var(--accent-blue);
+            color: var(--accent-blue);
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        .streak-panel {
+            text-align: center;
+            animation: slideInRight 0.8s ease;
+            padding: 30px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .flame-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.2s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .flame-icon:hover {
+            transform: scale(1.08);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .streak-text {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 30px;
+            animation: slideInUp 0.6s ease;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .calendar-container {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-top: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            animation: slideInRight 0.8s ease;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-container:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .calendar-nav {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .calendar-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .calendar-nav:active {
+            transform: translateY(0);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .calendar-day-name {
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary);
+            padding: 12px 6px;
+            animation: slideDown 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 12px 6px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
+            color: var(--text-dark);
+            animation: scaleUp 0.3s ease;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+        }
+
+        .calendar-day:hover {
+            background: rgba(102, 126, 234, 0.08);
+            transform: scale(1.08);
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .calendar-day.streak-date {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            animation: popIn 0.4s ease;
+            border-color: var(--primary);
+        }
+
+        .calendar-day.streak-date:hover {
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+            transform: scale(1.1) translateY(-2px);
+        }
+
+        .calendar-day.today {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            animation: glow-pulse 2s ease-in-out infinite;
+            border-color: var(--success);
+        }
+
+        .calendar-day.today:hover {
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+            transform: scale(1.1) translateY(-2px);
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
+        }
+
+        .calendar-empty {
+            padding: 14px 8px;
+            color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==================== DAY DETAIL PAGE ==================== */
+        #dayDetail {
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+        }
+
+        #dayDetail::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .day-detail-container {
+            width: 100%;
+            max-width: 700px;
+            animation: slideInUp 0.5s ease;
+            position: relative;
+            z-index: 1;
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .day-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .day-detail-back {
+            background: #FFFFFF;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 24px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 8px;
+        }
+
+        .day-detail-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .day-detail-back:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .day-detail-back:active {
+            transform: translateY(0);
+        }
+
+        .day-detail-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: var(--text-dark);
+            animation: slideInUp 0.5s ease;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .day-detail-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 2px;
+            animation: scaleUp 0.8s ease;
+        }
+
+        .progress-section {
+            margin-bottom: 40px;
+            animation: slideInUp 0.5s ease;
+            padding: 28px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .progress-bar-bg {
+            background: #E5E7EB;
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            height: 100%;
+            transition: width 0.4s ease;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .status-badge {
+            background: linear-gradient(135deg, #EEF2FF 0%, #F3F4F6 100%);
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            padding: 14px 28px;
+            border-radius: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            animation: slideInUp 0.5s ease;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+
+        .status-badge:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .status-badge.warning {
+            background: linear-gradient(135deg, #FEE2E2 0%, #FEF2F2 100%);
+            border-color: var(--danger);
+            color: var(--danger);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.1);
+        }
+
+        .status-badge.warning:hover {
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .tasks-list {
+            margin-bottom: 30px;
+        }
+
+        .tasks-list .task-item:nth-child(1) {
+            animation: slideInUp 0.5s ease;
+        }
+
+        .tasks-list .task-item:nth-child(2) {
+            animation: slideInUp 0.55s ease;
+        }
+
+        .tasks-list .task-item:nth-child(3) {
+            animation: slideInUp 0.6s ease;
+        }
+
+        .tasks-list .task-item:nth-child(4) {
+            animation: slideInUp 0.65s ease;
+        }
+
+        .tasks-list .task-item:nth-child(5) {
+            animation: slideInUp 0.7s ease;
+        }
+
+        .tasks-list .task-item:nth-child(6) {
+            animation: slideInUp 0.75s ease;
+        }
+
+        .tasks-list .task-item:nth-child(7) {
+            animation: slideInUp 0.8s ease;
+        }
+
+        .tasks-list .task-item:nth-child(8) {
+            animation: slideInUp 0.85s ease;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: #FFFFFF;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            animation: slideInUp 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .task-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+            transform: translateX(3px);
+            background: #FFFFFF;
+        }
+
+        .task-item:hover::before {
+            opacity: 1;
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+            background: #F9FAFB;
+        }
+
+        .task-item.completed .task-name {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .task-checkbox:hover {
+            transform: scale(1.1);
+        }
+
+        .task-checkbox:checked {
+            animation: scaleUp 0.3s ease;
+        }
+
+        .task-name {
+            flex: 1;
+            font-size: 1rem;
+            cursor: pointer;
+            word-break: break-word;
+            transition: all 0.2s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--text-dark);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .task-name:hover {
+            background: rgba(102, 126, 234, 0.08);
+            color: var(--primary);
+        }
+
+        .task-name.editing {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+        }
+
+        .task-input {
+            flex: 1;
+            background: #FFFFFF;
+            border: 1.5px solid var(--primary);
+            color: var(--text-dark);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            animation: slideInUp 0.3s ease;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .task-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .task-delete {
+            background: linear-gradient(135deg, var(--danger) 0%, #DC2626 100%);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            padding: 0;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(239, 68, 68, 0.2);
+        }
+
+        .task-delete:hover {
+            background: var(--danger);
+            transform: scale(1.12) rotate(8deg);
+            box-shadow: 0 6px 14px rgba(239, 68, 68, 0.35);
+        }
+
+        .task-delete:active {
+            transform: scale(0.95);
+        }
+
+        .add-task-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            animation: slideInUp 0.6s ease;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, transparent 100%);
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+
+        .add-task-input {
+            flex: 1;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .add-task-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .add-task-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .add-task-button {
+            padding: 12px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .add-task-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .add-task-button:active {
+            transform: scale(0.98);
+        }
+
+        .task-limit-warning {
+            color: var(--warning);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: center;
+            font-weight: 500;
+            animation: slideInUp 0.4s ease;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1200px) {
+            #dashboard {
+                flex-direction: column;
+            }
+
+            .dashboard-left,
+            .dashboard-center,
+            .dashboard-right {
+                flex: auto;
+                border: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .day-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .dashboard-left,
+            .dashboard-center,
+            .dashboard-right {
+                padding: 20px;
+            }
+
+            .day-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .day-card {
+                padding: 14px;
+            }
+
+            .flame-icon {
+                font-size: 64px;
+            }
+
+            .streak-text {
+                font-size: 2.2rem;
+            }
+
+            .password-modal {
+                margin: 20px;
+                padding: 35px 25px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .dashboard-left,
+            .dashboard-center,
+            .dashboard-right {
+                padding: 15px;
+            }
+
+            .day-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .greeting {
+                font-size: 1.3rem;
+            }
+
+            .day-detail-title {
+                font-size: 1.8rem;
+            }
+
+            .password-modal {
+                padding: 30px 20px;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="dotted-bg">
+    <!-- ==================== LANDING PAGE ==================== -->
+    <div id="landing" class="container active">
+        <div class="floating-particle particle-1"></div>
+        <div class="floating-particle particle-2"></div>
+        <div class="floating-particle particle-3"></div>
+        
+        <div class="landing-content">
+            <h1 class="hero-title">Gayathri's Task Universe 🌟</h1>
+            <p class="hero-subtitle">Your Personal Task Management Portal</p>
+            <p class="hero-description">
+                Build unstoppable streaks by completing tasks daily. Track your progress, maintain consistency, and unlock your full potential one day at a time.
+            </p>
+            <button class="btn-primary landing-button" onclick="showPasswordGate1()">
+                Let's Go 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== PASSWORD GATE 1 ==================== -->
+    <div id="passwordGate1" class="password-overlay">
+        <div class="password-modal">
+            <div class="password-lock-icon">🔐</div>
+            <h2>First Gate</h2>
+            <p>Enter your first secret key to unlock the experience</p>
+            <div class="password-input-wrapper">
+                <input type="password" id="password1Input" class="password-input" placeholder="Secret key...">
+            </div>
+            <div class="password-error" id="password1Error"></div>
+            <button class="btn-primary password-button" onclick="checkPassword1()">Unlock → </button>
+            <div class="password-progress">
+                <div class="password-progress-label">Security Progress</div>
+                <div class="password-progress-bar">
+                    <div class="password-progress-fill" style="width: 50%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PASSWORD GATE 2 ==================== -->
+    <div id="passwordGate2" class="password-overlay">
+        <div class="password-modal">
+            <div class="password-lock-icon">🔑</div>
+            <h2>Final Gate</h2>
+            <p>Enter your second secret key to gain full access</p>
+            <div class="password-input-wrapper">
+                <input type="password" id="password2Input" class="password-input" placeholder="Secret key...">
+            </div>
+            <div class="password-error" id="password2Error"></div>
+            <button class="btn-primary password-button" onclick="checkPassword2()">Enter Your World 🚀</button>
+            <div class="password-progress">
+                <div class="password-progress-label">Security Progress</div>
+                <div class="password-progress-bar">
+                    <div class="password-progress-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN DASHBOARD ==================== -->
+    <div id="dashboard" class="container">
+        <!-- LEFT PANEL -->
+        <div class="dashboard-left">
+            <div class="greeting" id="greeting">Hey Gayathri, How do you do? 💫</div>
+            <div class="date-time" id="currentTime">Loading time...</div>
+            <div class="date-display" id="currentDate">Loading date...</div>
+            
+            <div class="quotes-container">
+                <div class="quote-text" id="quoteText">Loading inspiration...</div>
+            </div>
+
+            <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,107,53,0.2);">
+                <button class="btn-secondary" onclick="logout()" style="width: 100%;">Logout</button>
+            </div>
+        </div>
+
+        <!-- CENTER PANEL -->
+        <div class="dashboard-center">
+            <h2 class="tasks-title">Your Tasks</h2>
+            <div class="day-grid" id="dayGrid">
+                <!-- Day cards will be generated here -->
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="dashboard-right">
+            <div class="streak-panel">
+                <div class="flame-icon">🔥</div>
+                <div class="streak-text" id="streakCount">Streak: 0 days</div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" onclick="previousMonth()">← Prev</button>
+                        <span id="calendarMonth" style="font-size: 1.1rem;">Loading...</span>
+                        <button class="calendar-nav" onclick="nextMonth()">Next →</button>
+                    </div>
+                    <div class="calendar-grid" id="calendar">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DAY DETAIL PAGE ==================== -->
+    <div id="dayDetail" class="container dotted-bg">
+        <div class="day-detail-container">
+            <div class="day-detail-header">
+                <button class="day-detail-back" onclick="backToDashboard()">← Back</button>
+                <div></div>
+            </div>
+
+            <h2 class="day-detail-title" id="dayDetailTitle">Day 1 — April 1, 2026</h2>
+
+            <div class="progress-section">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progressText">0 / 0 tasks completed</div>
+            </div>
+
+            <div class="status-badge" id="statusBadge">
+                ⚠️ Complete at least 2 tasks to keep your streak!
+            </div>
+
+            <div class="add-task-section">
+                <input type="text" class="add-task-input" id="newTaskInput" placeholder="Add a new task...">
+                <button class="btn-primary add-task-button" onclick="addTask()">Add</button>
+            </div>
+            <div class="task-limit-warning" id="taskLimitWarning"></div>
+
+            <div class="tasks-list" id="tasksList">
+                <!-- Tasks will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== CONSTANTS & CONFIG ====================
+        const PASSWORD1 = "sunshine123";
+        const PASSWORD2 = "rainbow456";
+        const TASK_LIMIT = 8;
+        
+        const QUOTES = [
+            "Each day you must chose the pain of discipline, or the pain of regret.",
+            "Success is the sum of small efforts repeated day in and day out.",
+            "Don't watch the clock; do what it does. Keep going.",
+            "The future depends on what you do today.",
+            "Consistency is the key to extraordinary results.",
+            "You don't have to be great to start, but you have to start to be great.",
+            "The secret of success is doing the common thing uncommonly well.",
+            "Believe you can and you're halfway there.",
+            "Its never late.",
+            "Stick to the plan , not to the mood."
+        ];
+
+        // ==================== STATE MANAGEMENT ====================
+        let currentPage = 'landing';
+        let currentDate = new Date();
+        let currentViewDate = new Date();
+        let currentViewingDay = null;
+
+        // ==================== INITIALIZATION ====================
+        window.addEventListener('load', () => {
+            initializeApp();
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            rotateQuotes();
+            renderCalendar();
+        });
+
+        function initializeApp() {
+            validateAndUpdateStreak();
+            updateDayGrid();
+            updateStreakDisplay();
+        }
+
+        // ==================== DATE & TIME ====================
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+            
+            let hours = now.getHours().toString().padStart(2, '0');
+            let minutes = now.getMinutes().toString().padStart(2, '0');
+            let seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function getFormattedDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getReadableDate(dateStr) {
+            const [year, month, day] = dateStr.split('-');
+            const date = new Date(year, month - 1, day);
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // ==================== QUOTE ROTATION ====================
+        let currentQuoteIndex = 0;
+
+        function rotateQuotes() {
+            const quoteText = document.getElementById('quoteText');
+            quoteText.style.animation = 'none';
+            setTimeout(() => {
+                quoteText.textContent = QUOTES[currentQuoteIndex];
+                quoteText.style.animation = 'fadeIn 1s ease';
+            }, 10);
+            
+            currentQuoteIndex = (currentQuoteIndex + 1) % QUOTES.length;
+            setTimeout(rotateQuotes, 5000);
+        }
+
+        // ==================== PASSWORD GATES ====================
+        function showPasswordGate1() {
+            // Hide landing page
+            document.getElementById('landing').classList.remove('active');
+            // Hide all password overlays first
+            document.getElementById('passwordGate1').classList.remove('active');
+            document.getElementById('passwordGate2').classList.remove('active');
+            
+            // Clear inputs and errors
+            document.getElementById('password1Input').value = '';
+            document.getElementById('password1Error').textContent = '';
+            document.getElementById('password2Input').value = '';
+            document.getElementById('password2Error').textContent = '';
+            
+            // Show password gate 1
+            setTimeout(() => {
+                document.getElementById('passwordGate1').classList.add('active');
+                setTimeout(() => document.getElementById('password1Input').focus(), 100);
+            }, 50);
+        }
+
+        function checkPassword1() {
+            const input = document.getElementById('password1Input');
+            const error = document.getElementById('password1Error');
+            
+            if (input.value === PASSWORD1) {
+                error.textContent = '';
+                // Remove password 1 gate
+                document.getElementById('passwordGate1').classList.remove('active');
+                
+                // Delay to ensure first gate is fully removed before showing second
+                setTimeout(() => {
+                    document.getElementById('password2Input').value = '';
+                    document.getElementById('password2Error').textContent = '';
+                    document.getElementById('passwordGate2').classList.add('active');
+                    setTimeout(() => document.getElementById('password2Input').focus(), 100);
+                }, 300);
+            } else {
+                error.textContent = '❌ Wrong password!';
+                input.classList.add('shake');
+                setTimeout(() => {
+                    input.classList.remove('shake');
+                }, 500);
+                input.value = '';
+                setTimeout(() => input.focus(), 100);
+            }
+        }
+
+        function checkPassword2() {
+            const input = document.getElementById('password2Input');
+            const error = document.getElementById('password2Error');
+            
+            if (input.value === PASSWORD2) {
+                error.textContent = '';
+                // Remove password 2 gate
+                document.getElementById('passwordGate2').classList.remove('active');
+                
+                // Delay before showing dashboard
+                setTimeout(() => showDashboard(), 300);
+            } else {
+                error.textContent = '❌ Not quite!';
+                input.classList.add('shake');
+                setTimeout(() => {
+                    input.classList.remove('shake');
+                }, 500);
+                input.value = '';
+                setTimeout(() => input.focus(), 100);
+            }
+        }
+
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (document.getElementById('passwordGate1').classList.contains('active')) {
+                    checkPassword1();
+                } else if (document.getElementById('passwordGate2').classList.contains('active')) {
+                    checkPassword2();
+                } else if (document.getElementById('dayDetail').classList.contains('active')) {
+                    if (document.getElementById('newTaskInput') === document.activeElement) {
+                        addTask();
+                    }
+                }
+            }
+        });
+
+        // ==================== PAGE NAVIGATION ====================
+        function showDashboard() {
+            hidePage(currentPage);
+            document.getElementById('dashboard').classList.add('active');
+            currentPage = 'dashboard';
+        }
+
+        function showDayDetail(dayNum) {
+            const appStartDate = localStorage.getItem('appStartDate');
+            if (!appStartDate) return;
+            
+            const startDate = new Date(appStartDate);
+            const viewDate = new Date(startDate.getTime() + (dayNum - 1) * 24 * 60 * 60 * 1000);
+            const dateStr = getFormattedDate(viewDate);
+            
+            currentViewingDay = dayNum;
+            
+            document.getElementById('dayDetailTitle').textContent = `Day ${dayNum} — ${getReadableDate(dateStr)}`;
+            loadTasksForDay(dateStr);
+            
+            hidePage(currentPage);
+            document.getElementById('dayDetail').classList.add('active');
+            currentPage = 'dayDetail';
+        }
+
+        function backToDashboard() {
+            hidePage(currentPage);
+            document.getElementById('dashboard').classList.add('active');
+            currentPage = 'dashboard';
+        }
+
+        function hidePage(page) {
+            const pages = ['landing', 'dashboard', 'dayDetail'];
+            pages.forEach(p => {
+                const el = document.getElementById(p);
+                if (el) el.classList.remove('active');
+            });
+        }
+
+        function logout() {
+            document.getElementById('password1Input').value = '';
+            document.getElementById('password2Input').value = '';
+            document.getElementById('password1Error').textContent = '';
+            document.getElementById('password2Error').textContent = '';
+            
+            hidePage(currentPage);
+            document.getElementById('landing').classList.add('active');
+            currentPage = 'landing';
+        }
+
+        // ==================== STREAK LOGIC ====================
+        function validateAndUpdateStreak() {
+            const today = getFormattedDate(new Date());
+            const appStartDate = localStorage.getItem('appStartDate');
+            const lastActiveDate = localStorage.getItem('lastActiveDate');
+            const streakCount = parseInt(localStorage.getItem('streakCount') || '0');
+            
+            // First time app is opened
+            if (!appStartDate) {
+                localStorage.setItem('appStartDate', today);
+                localStorage.setItem('lastActiveDate', today);
+                localStorage.setItem('streakCount', '1');
+                localStorage.setItem('streakDates', JSON.stringify([today]));
+                return;
+            }
+            
+            // Check if streak should be broken
+            let streakValid = true;
+            
+            // If more than 1 day has passed since last active date, streak is broken
+            if (lastActiveDate !== today) {
+                const last = new Date(lastActiveDate);
+                const now = new Date(today);
+                const dayDiff = Math.floor((now - last) / (24 * 60 * 60 * 1000));
+                
+                if (dayDiff > 1) {
+                    streakValid = false;
+                } else if (dayDiff === 1) {
+                    // Yesterday was the last active date - check if yesterday had 2+ completed tasks
+                    const yesterdayTasks = JSON.parse(localStorage.getItem(`tasks_${lastActiveDate}`) || '[]');
+                    const completedCount = yesterdayTasks.filter(t => t.completed).length;
+                    if (completedCount < 2) {
+                        streakValid = false;
+                    }
+                }
+            }
+            
+            // Reset streak if broken
+            if (!streakValid) {
+                localStorage.setItem('appStartDate', today);
+                localStorage.setItem('streakCount', '1');
+                localStorage.setItem('streakDates', JSON.stringify([today]));
+                localStorage.setItem('lastActiveDate', today);
+                
+                // Clear all old tasks
+                for (let key in localStorage) {
+                    if (key.startsWith('tasks_')) {
+                        localStorage.removeItem(key);
+                    }
+                }
+            } else if (lastActiveDate !== today) {
+                // New day, but streak maintained
+                const newCount = streakCount + 1;
+                localStorage.setItem('streakCount', newCount.toString());
+                localStorage.setItem('lastActiveDate', today);
+                
+                // Add today to streak dates
+                const streakDates = JSON.parse(localStorage.getItem('streakDates') || '[]');
+                if (!streakDates.includes(today)) {
+                    streakDates.push(today);
+                    localStorage.setItem('streakDates', JSON.stringify(streakDates));
+                }
+            }
+        }
+
+        function updateStreakDisplay() {
+            const streakCount = localStorage.getItem('streakCount') || '0';
+            document.getElementById('streakCount').textContent = `Streak: ${streakCount} days`;
+            
+            // Scale flame based on streak
+            const flameIcon = document.querySelector('.flame-icon');
+            const scale = Math.min(1 + (parseInt(streakCount) * 0.05), 1.5);
+            flameIcon.style.transform = `scale(${scale})`;
+        }
+
+        // ==================== DAY GRID ====================
+        function updateDayGrid() {
+            const appStartDate = localStorage.getItem('appStartDate');
+            if (!appStartDate) return;
+            
+            const startDate = new Date(appStartDate);
+            const today = new Date();
+            const daysDiff = Math.floor((today - startDate) / (24 * 60 * 60 * 1000)) + 1;
+            
+            const dayGrid = document.getElementById('dayGrid');
+            dayGrid.innerHTML = '';
+            
+            for (let i = 1; i <= daysDiff; i++) {
+                const cardDate = new Date(startDate.getTime() + (i - 1) * 24 * 60 * 60 * 1000);
+                const dateStr = getFormattedDate(cardDate);
+                const readableDate = getReadableDate(dateStr);
+                
+                const tasks = JSON.parse(localStorage.getItem(`tasks_${dateStr}`) || '[]');
+                const completedCount = tasks.filter(t => t.completed).length;
+                
+                const isToday = dateStr === getFormattedDate(today);
+                let statusClass = '';
+                let statusText = '';
+                
+                if (isToday) {
+                    statusClass = 'status-today';
+                    statusText = '🟡';
+                } else if (completedCount >= 2) {
+                    statusClass = 'status-completed';
+                    statusText = '🟢';
+                } else {
+                    statusClass = 'status-broken';
+                    statusText = '🔴';
+                }
+                
+                const card = document.createElement('div');
+                card.className = 'day-card';
+                card.innerHTML = `
+                    <div class="day-number">Day ${i}</div>
+                    <div class="day-date">${readableDate}</div>
+                    <div class="day-status">
+                        <span class="status-indicator ${statusClass}"></span>
+                        <span>${statusText}</span>
+                    </div>
+                `;
+                card.onclick = () => showDayDetail(i);
+                dayGrid.appendChild(card);
+            }
+        }
+
+        // ==================== TASKS ====================
+        function loadTasksForDay(dateStr) {
+            const tasks = JSON.parse(localStorage.getItem(`tasks_${dateStr}`) || '[]');
+            renderTasksList(tasks, dateStr);
+            updateTaskProgress(dateStr);
+        }
+
+        function renderTasksList(tasks, dateStr) {
+            const tasksList = document.getElementById('tasksList');
+            tasksList.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const item = document.createElement('div');
+                item.className = 'task-item' + (task.completed ? ' completed' : '');
+                item.innerHTML = `
+                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} 
+                        onchange="toggleTask('${dateStr}', '${task.id}')">
+                    <div class="task-name" ondblclick="editTask('${dateStr}', '${task.id}', this)">${escapeHtml(task.name)}</div>
+                    <button class="task-delete" onclick="deleteTask('${dateStr}', '${task.id}')">×</button>
+                `;
+                tasksList.appendChild(item);
+            });
+
+            const taskCount = tasks.length;
+            if (taskCount >= TASK_LIMIT) {
+                document.getElementById('taskLimitWarning').textContent = `Maximum task limit (${TASK_LIMIT}) reached for today`;
+            } else {
+                document.getElementById('taskLimitWarning').textContent = '';
+            }
+        }
+
+        function addTask() {
+            const input = document.getElementById('newTaskInput');
+            const taskName = input.value.trim();
+            
+            if (!taskName) return;
+            
+            const appStartDate = localStorage.getItem('appStartDate');
+            const startDate = new Date(appStartDate);
+            const dayNum = currentViewingDay;
+            const cardDate = new Date(startDate.getTime() + (dayNum - 1) * 24 * 60 * 60 * 1000);
+            const dateStr = getFormattedDate(cardDate);
+            
+            const tasks = JSON.parse(localStorage.getItem(`tasks_${dateStr}`) || '[]');
+            
+            if (tasks.length >= TASK_LIMIT) {
+                document.getElementById('taskLimitWarning').textContent = `Cannot add more than ${TASK_LIMIT} tasks per day`;
+                return;
+            }
+            
+            tasks.push({
+                id: Date.now().toString(),
+                name: taskName,
+                completed: false
+            });
+            
+            localStorage.setItem(`tasks_${dateStr}`, JSON.stringify(tasks));
+            input.value = '';
+            loadTasksForDay(dateStr);
+            updateTaskProgress(dateStr);
+            updateDayGrid();
+        }
+
+        function toggleTask(dateStr, taskId) {
+            const tasks = JSON.parse(localStorage.getItem(`tasks_${dateStr}`) || '[]');
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = !task.completed;
+                localStorage.setItem(`tasks_${dateStr}`, JSON.stringify(tasks));
+                loadTasksForDay(dateStr);
+                updateTaskProgress(dateStr);
+                updateDayGrid();
+            }
+        }
+
+        function editTask(dateStr, taskId, element) {
+            const tasks = JSON.parse(localStorage.getItem(`tasks_${dateStr}`) || '[]');
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+            
+            const currentName = task.name;
+            element.classList.add('editing');
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'task-input';
+            input.value = currentName;
+            
+            element.replaceWith(input);
+            input.focus();
+            input.select();
+            
+            function saveEdit() {
+                const newName = input.value.trim();
+                if (newName && newName !== currentName) {
+                    task.name = newName;
+                    localStorage.setItem(`tasks_${dateStr}`, JSON.stringify(tasks));
+                    loadTasksForDay(dateStr);
+                }
+                loadTasksForDay(dateStr);
+            }
+            
+            input.addEventListener('blur', saveEdit);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') saveEdit();
+            });
+        }
+
+        function deleteTask(dateStr, taskId) {
+            const tasks = JSON.parse(localStorage.getItem(`tasks_${dateStr}`) || '[]');
+            const filtered = tasks.filter(t => t.id !== taskId);
+            localStorage.setItem(`tasks_${dateStr}`, JSON.stringify(filtered));
+            loadTasksForDay(dateStr);
+            updateTaskProgress(dateStr);
+            updateDayGrid();
+        }
+
+        function updateTaskProgress(dateStr) {
+            const tasks = JSON.parse(localStorage.getItem(`tasks_${dateStr}`) || '[]');
+            const completed = tasks.filter(t => t.completed).length;
+            const total = tasks.length;
+            
+            const progressPercent = total === 0 ? 0 : (completed / total) * 100;
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('progressText').textContent = `${completed} / ${total} tasks completed`;
+            
+            const badge = document.getElementById('statusBadge');
+            if (completed >= 2) {
+                badge.textContent = '✅ Streak Maintained!';
+                badge.classList.remove('warning');
+            } else {
+                badge.textContent = '⚠️ Complete at least 2 tasks to keep your streak!';
+                badge.classList.add('warning');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== CALENDAR ====================
+        function renderCalendar() {
+            const year = currentViewDate.getFullYear();
+            const month = currentViewDate.getMonth();
+            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('calendarMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+            
+            // Day names
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(day => {
+                const dayNameEl = document.createElement('div');
+                dayNameEl.className = 'calendar-day-name';
+                dayNameEl.textContent = day;
+                calendar.appendChild(dayNameEl);
+            });
+            
+            // Days - Load all available dates from localStorage to support 100+ days
+            const streakDates = JSON.parse(localStorage.getItem('streakDates') || '[]');
+            const today = getFormattedDate(new Date());
+            const appStartDate = localStorage.getItem('appStartDate');
+            
+            // Determine the maximum day available (from any stored task or streak date)
+            let maxDay = 0;
+            if (appStartDate) {
+                // Check all localStorage keys to find latest day stored
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith('tasks_')) {
+                        const dateStr = key.substring(6); // Remove 'tasks_' prefix
+                        const storedDate = new Date(dateStr);
+                        const startDate_check = new Date(appStartDate);
+                        const dayDiff = Math.ceil((storedDate - startDate_check) / (1000 * 60 * 60 * 24)) + 1;
+                        if (dayDiff > maxDay) maxDay = dayDiff;
+                    }
+                }
+            }
+            
+            for (let i = 0; i < 42; i++) {
+                const date = new Date(startDate);
+                date.setDate(date.getDate() + i);
+                const dateStr = getFormattedDate(date);
+                
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = date.getDate();
+                
+                if (date.getMonth() !== month) {
+                    dayEl.classList.add('other-month');
+                }
+                
+                if (streakDates.includes(dateStr)) {
+                    dayEl.classList.add('streak-date');
+                }
+                
+                if (dateStr === today) {
+                    dayEl.classList.add('today');
+                }
+                
+                calendar.appendChild(dayEl);
+            }
+        }
+
+        function previousMonth() {
+            currentViewDate.setMonth(currentViewDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentViewDate.setMonth(currentViewDate.getMonth() + 1);
+            renderCalendar();
+        }
+    </script>
+</body>
+</html>
