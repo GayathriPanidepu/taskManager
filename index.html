@@ -1221,8 +1221,8 @@
         // ===== MAIN APP OBJECT =====
         const app = {
             PASSWORDS: {
-                first: 'sunshine123',
-                second: 'rainbow456'
+                first: process.env.FIRST_PASSWORD,
+                second:process.env.SECOND_PASSWORD
             },
             QUOTES: [
                 '"Consistency is the foundation of greatness." - Unknown',
